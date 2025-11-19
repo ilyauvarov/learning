@@ -9,31 +9,28 @@
   </head>
   <body>
     <main>
-      <div class="py-5 bg-light">
-        <div class="container">
-          <div class="row row-cols-1">
-            <div class="col">
-              {% if user.is_authenticated %}
-                <form method="post" action="{% url 'logout' %}">
-                  {% csrf_token %}
-                  <span>Добро пожаловать, {{ user.username }}</span> |
-                  <a href="{% url 'stock:account' %}">Личный кабинет</a> |
-                  <button type="submit">Выход</button>
-                </form>
-              {% else %}
-                <a href="{% url 'login' %}">Вход</a>
-              {% endif %}
-            </div>
+      <!-- Верхняя панель -->
+      <div class="py-3 bg-light border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+          <div>
+            {% if user.is_authenticated %}
+              <span class="me-2">Добро пожаловать, <strong>{{ user.username }}</strong></span>
+              <a class="btn btn-sm btn-outline-primary me-2" href="{% url 'stock:account' %}">Личный кабинет</a>
+              <form method="post" action="{% url 'logout' %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-danger">Выход</button>
+              </form>
+            {% else %}
+              <a class="btn btn-sm btn-primary" href="{% url 'login' %}">Вход</a>
+            {% endif %}
           </div>
         </div>
       </div>
-      <div class="py-5 bg-light">
+
+      <!-- Основной контент -->
+      <div class="py-5">
         <div class="container">
-          <div class="row row-cols-1">
-            <div class="col">
-              {% block content %}{% endblock %}
-            </div>
-          </div>
+          {% block content %}{% endblock %}
         </div>
       </div>
     </main>

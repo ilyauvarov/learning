@@ -1,18 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div>
-        <h4>Денежные средства</h4>
+<div class="mb-4">
+    <h4 class="mb-3">Денежные средства</h4>
+    <div class="list-group">
         {% for acc_currency in currencies %}
-            <div>{{ acc_currency.amount }}{{ acc_currency.sign }}</div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ acc_currency.currency_name }}</span>
+                <strong>{{ acc_currency.amount }} {{ acc_currency.sign }}</strong>
+            </div>
         {% endfor %}
     </div>
-    <div>
-        <h4>Акции</h4>
+</div>
+
+<div class="mb-4">
+    <h4 class="mb-3">Акции</h4>
+    <div class="list-group">
         {% for acc_stock in stocks %}
-            <div>{{ acc_stock.ticker }} - {{ acc_stock.amount }} - {{ acc_stock.avg }}</div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ acc_stock.ticker }}</span>
+                <span>{{ acc_stock.amount }} шт.</span>
+                <span>Средняя цена: {{ acc_stock.avg }}</span>
+            </div>
         {% endfor %}
     </div>
-    <div>
-        <a href="{% url 'stock:list' %}">К списку акций</a>
-    </div>
+</div>
+
+<div>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'stock:list' %}">К списку акций</a>
+</div>
 {% endblock %}
